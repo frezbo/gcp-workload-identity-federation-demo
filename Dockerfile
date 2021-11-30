@@ -7,6 +7,7 @@ ARG TARGETARCH
 
 ENV GO111MODULE=on
 ENV CGO_ENABLED=0
+WORKDIR /go/src/
 
 COPY go.* .
 RUN go mod download
@@ -17,6 +18,6 @@ RUN GOOS=${TARGETOS} GOARCH=${TARGETARCH} go build -o app .
 FROM scratch
 # add ca certificates from builder image
 COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/ca-certificates.crt
-COPY --from=builder /app /app
+COPY --from=builder /go/src/app /app
 USER 1000
 ENTRYPOINT ["/app"]
