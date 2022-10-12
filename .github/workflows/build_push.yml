@@ -35,7 +35,7 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Build and push
-        uses: docker/bake-action@v2.2.0
+        uses: docker/bake-action@v2.3.0
         with:
           files: |
             ./docker-bake.hcl
